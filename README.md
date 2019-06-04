@@ -12,7 +12,7 @@ tbrocherieux/postgis-parallel:[postgres-version]-[postgis-version]
 
 So for example:
 
-``tbrocherieux/postgis-parallel:12.0beta1:3.0alpha1`` Provides PostgreSQL 12.0 beta 1, PostGIS 3.0 alpha 1
+``tbrocherieux/postgis-parallel:12.0beta1:3.0alpha2`` Provides PostgreSQL 12.0 beta 1, PostGIS 3.0 alpha 1
 
 ## Getting the image
 

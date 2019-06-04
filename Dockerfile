@@ -13,9 +13,9 @@ RUN wget --quiet -O postgresql-12beta1.tar.gz https://ftp.postgresql.org/pub/sou
  && tar -xzf postgresql-12beta1.tar.gz \
  && rm postgresql-12beta1.tar.gz
 
-RUN wget --quiet -O postgis-3.0.0alpha1.tar.gz https://download.osgeo.org/postgis/source/postgis-3.0.0alpha1.tar.gz \
- && tar -xzf postgis-3.0.0alpha1.tar.gz \
- && rm postgis-3.0.0alpha1.tar.gz
+RUN wget --quiet -O postgis-3.0.0alpha2.tar.gz https://download.osgeo.org/postgis/source/postgis-3.0.0alpha2.tar.gz \
+ && tar -xzf postgis-3.0.0alpha2.tar.gz \
+ && rm postgis-3.0.0alpha2.tar.gz
 
 RUN wget --quiet -O geos-3.7.2.tar.bz2 http://download.osgeo.org/geos/geos-3.7.2.tar.bz2 \
  && tar -jxf geos-3.7.2.tar.bz2 \
@@ -36,7 +36,7 @@ RUN cd postgresql-12beta1/contrib \
  && su \
  && make install
 
-RUN cd postgis-3.0.0alpha1 \
+RUN cd postgis-3.0.0alpha2 \
  && ./configure --with-pgconfig=/usr/local/pgsql/bin/pg_config --with-geosconfig=/usr/local/bin/geos-config \
  && make \
  && make install
