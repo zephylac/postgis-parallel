@@ -17,11 +17,11 @@ RUN wget --quiet -O postgis-3.0.0alpha1.tar.gz https://download.osgeo.org/postgi
  && tar -xzf postgis-3.0.0alpha1.tar.gz \
  && rm postgis-3.0.0alpha1.tar.gz
 
-RUN wget --quiet -O geos-3.7.0rc2.tar.bz2 http://download.osgeo.org/geos/geos-3.7.2.tar.bz2 \
- && tar -jxf geos-3.7.0rc2.tar.bz2 \
- && rm geos-3.7.0rc2.tar.bz2
+RUN wget --quiet -O geos-3.7.2.tar.bz2 http://download.osgeo.org/geos/geos-3.7.2.tar.bz2 \
+ && tar -jxf geos-3.7.2.tar.bz2 \
+ && rm geos-3.7.2.tar.bz2
 
-RUN cd geos-3.7.0rc2 \
+RUN cd geos-3.7.2 \
  && ./configure \
  && make \
  && make install
