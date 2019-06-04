@@ -4,7 +4,7 @@ RUN  export DEBIAN_FRONTEND=noninteractive
 ENV  DEBIAN_FRONTEND noninteractive
 RUN  dpkg-divert --local --rename --add /sbin/initctl
 
-RUN apt-get -y update; apt-get -y install gnupg2 wget ca-certificates rpl pwgen build-essential libreadline-dev zlib1g-dev libxml2-dev libgeos-dev binutils libproj-dev gdal-bin libgdal-dev libssl-dev
+RUN apt-get -y update; apt-get -y install gnupg2 wget ca-certificates ssl-cert rpl pwgen build-essential libreadline-dev zlib1g-dev libxml2-dev libgeos-dev binutils libproj-dev gdal-bin libgdal-dev libssl-dev libcunit1-dev
 
 RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
@@ -32,13 +32,16 @@ RUN cd postgresql-12beta1 \
  && su \
  && make install
 
-
 RUN cd postgis-3.0.0alpha1 \
- && ./configure --with-pgconfig=/usr/local/pgsql/bin/pg_config \
+ && ./configure --with-pgconfig=/usr/local/pgsql/bin/pg_config --with-geosconfig=/usr/local/bin/geos-config \
  && make \
  && make install
 
 EXPOSE 5432
+
+RUN cd postgresql-12beta1/contrib \
+ && su \
+ && make install
 
 ENV PGDATA /usr/local/pgsql/data
 RUN useradd -ms /bin/bash postgres

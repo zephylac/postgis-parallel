@@ -11,11 +11,12 @@ fi
 
 # /etc/ssl/private can't be accessed from within container for some reason
 # (@andrewgodwin says it's something AUFS related)  - taken from https://github.com/orchardup/docker-postgresql/blob/master/Dockerfile
-cp -r /etc/ssl /tmp/ssl-copy/
-chmod -R 0700 /etc/ssl
-chown -R postgres /tmp/ssl-copy
-rm -r /etc/ssl
-mv /tmp/ssl-copy /etc/ssl
+mkdir /etc/ssl/private-copy;
+mv /etc/ssl/private/* /etc/ssl/private-copy/
+rm -r /etc/ssl/private
+mv /etc/ssl/private-copy /etc/ssl/private
+chmod -R 0700 /etc/ssl/private
+chown -R postgres /etc/ssl/private
 
 # Needed under debian, wasnt needed under ubuntu
 mkdir -p ${PGSTAT_TMP}
@@ -28,8 +29,9 @@ echo "ssl = true" >> $CONF
 echo "ssl_cert_file = '/etc/ssl/certs/ssl-cert-snakeoil.pem'" >> $CONF
 echo "ssl_key_file = '/etc/ssl/private/ssl-cert-snakeoil.key'" >> $CONF
 echo "data_directory = '/usr/local/pgsql/data'" >> $CONF
-echo "hba_file = '/usr/local/pgsql/bin/pg_hba.conf'" >> $CONF
-echo "ident = '/usr/local/pgsql/bin/pg_ident.conf'" >> $CONF
+echo "hba_file = '/usr/local/pgsql/data/pg_hba.conf'" >> $CONF
+echo "ident_file = '/usr/local/pgsql/data/pg_ident.conf'" >> $CONF
+echo "external_pid_file = '/var/run/postgresql/12-main.pid'" >> $CONF
 
 #echo "ssl_ca_file = ''                       # (change requires restart)" >> $CONF
 #echo "ssl_crl_file = ''" >> $CONF

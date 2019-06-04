@@ -28,8 +28,8 @@ else
         arr=(${list})
         SINGLE_DB=${arr[0]}
         case "$f" in
-            *.sql)    echo "$0: running $f"; /usr/local/pgsql/bin/postgres ${SINGLE_DB} -U ${POSTGRES_USER} -p 5432 -h localhost  -f ${f} || true ;;
-            *.sql.gz) echo "$0: running $f"; gunzip < "$f" | /usr/local/pgsql/bin/postgres ${SINGLE_DB} -U ${POSTGRES_USER} -p 5432 -h localhost || true ;;
+            *.sql)    echo "$0: running $f"; ${PSQL} ${SINGLE_DB} -U ${POSTGRES_USER} -p 5432 -h localhost  -f ${f} || true ;;
+            *.sql.gz) echo "$0: running $f"; gunzip < "$f" | ${PSQL} ${SINGLE_DB} -U ${POSTGRES_USER} -p 5432 -h localhost || true ;;
             *)        echo "$0: ignoring $f" ;;
         esac
         echo
@@ -87,4 +87,6 @@ if [[ "${1:0:1}" = '-' ]]; then
 	set -- $POSTGRES "$@"
 fi
 
+echo "Finally starting"
+echo "$@"
 exec su - "$@"

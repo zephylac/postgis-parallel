@@ -19,9 +19,9 @@ echo "postgresql user: $POSTGRES_USER" > /tmp/PGPASSWORD.txt
 echo "postgresql password: $POSTGRES_PASS" >> /tmp/PGPASSWORD.txt
 
 # Check user already exists
-RESULT=`su - postgres -c "/usr/local/pgsql/bin/postgres postgres -t -c \"SELECT 1 FROM pg_roles WHERE rolname = '$POSTGRES_USER'\""`
+RESULT=`su - postgres -c "${PSQL} postgres -t -c \"SELECT 1 FROM pg_roles WHERE rolname = '$POSTGRES_USER'\""`
 COMMAND="ALTER"
 if [ -z "$RESULT" ]; then
 	COMMAND="CREATE"
 fi
-su - postgres -c "/usr/local/pgsql/bin/postgres postgres -c \"$COMMAND USER $POSTGRES_USER WITH SUPERUSER ENCRYPTED PASSWORD '$POSTGRES_PASS';\""
+su - postgres -c "${PSQL} postgres -c \"$COMMAND USER $POSTGRES_USER WITH SUPERUSER ENCRYPTED PASSWORD '$POSTGRES_PASS';\""

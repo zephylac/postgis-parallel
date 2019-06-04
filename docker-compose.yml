@@ -7,8 +7,6 @@ volumes:
 services:
   db:
     image: zephylac/postgis-parallel:12.0-3.0
-    volumes:
-      - postgis-data:/var/lib/postgresql
     environment:
       # If you need to create multiple database you can add coma separated databases eg gis,data
       - POSTGRES_DB=gis
@@ -20,5 +18,3 @@ services:
     ports:
       - 5434:5432
     restart: on-failure
-    healthcheck:
-      test: "exit 0"

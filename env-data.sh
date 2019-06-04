@@ -5,8 +5,9 @@ CONF="$ROOT_CONF/postgresql.conf"
 WAL_ARCHIVE="/opt/archivedir"
 RECOVERY_CONF="$ROOT_CONF/recovery.conf"
 POSTGRES="/usr/local/pgsql/bin/postgres"
+PSQL="/usr/local/pgsql/bin/psql"
 INITDB="/usr/local/pgsql/bin/initdb"
-SQLDIR="/usr/share/postgresql/12/contrib/postgis-3.0/"
+SQLDIR="/usr/local/pgsql/share/contrib/postgis-3.0/"
 SETVARS="POSTGIS_ENABLE_OUTDB_RASTERS=1 POSTGIS_GDAL_ENABLED_DRIVERS=ENABLE_ALL"
 LOCALONLY="-c listen_addresses='127.0.0.1'"
 PG_BASEBACKUP="/usr/bin/pg_basebackup"
@@ -61,9 +62,9 @@ fi
 if [ ! -z "${POSTGRES_PASSWORD}" ]; then
 	POSTGRES_PASS=${POSTGRES_PASSWORD}
 fi
-if [ ! -z "${PGDATA}" ]; then
-	DATADIR=${PGDATA}
-fi
+#if [ ! -z "${PGDATA}" ]; then
+#	DATADIR=${PGDATA}
+#fi
 
 if [ ! -z "$POSTGRES_DB" ]; then
 	POSTGRES_DBNAME=${POSTGRES_DB}
