@@ -17,7 +17,7 @@ RUN wget --quiet -O postgis-3.0.0alpha1.tar.gz https://download.osgeo.org/postgi
  && tar -xzf postgis-3.0.0alpha1.tar.gz \
  && rm postgis-3.0.0alpha1.tar.gz
 
-RUN wget --quiet -O geos-3.7.0rc2.tar.bz2 https://download.osgeo.org/geos/geos-3.7.0rc2.tar.bz2 \
+RUN wget --quiet -O geos-3.7.0rc2.tar.bz2 http://download.osgeo.org/geos/geos-3.7.2.tar.bz2 \
  && tar -jxf geos-3.7.0rc2.tar.bz2 \
  && rm geos-3.7.0rc2.tar.bz2
 
@@ -32,16 +32,16 @@ RUN cd postgresql-12beta1 \
  && su \
  && make install
 
+RUN cd postgresql-12beta1/contrib \
+ && su \
+ && make install
+
 RUN cd postgis-3.0.0alpha1 \
  && ./configure --with-pgconfig=/usr/local/pgsql/bin/pg_config --with-geosconfig=/usr/local/bin/geos-config \
  && make \
  && make install
 
 EXPOSE 5432
-
-RUN cd postgresql-12beta1/contrib \
- && su \
- && make install
 
 ENV PGDATA /usr/local/pgsql/data
 RUN useradd -ms /bin/bash postgres
