@@ -34,6 +34,7 @@ RUN cd postgresql-12beta1 \
 
 RUN cd postgresql-12beta1/contrib \
  && su \
+ && make \
  && make install
 
 RUN cd postgis-3.0.0alpha2 \
@@ -43,7 +44,6 @@ RUN cd postgis-3.0.0alpha2 \
 
 EXPOSE 5432
 
-ENV PGDATA /usr/local/pgsql/data
 RUN useradd -ms /bin/bash postgres
 
 # Run any additional tasks here that are too tedious to put in
